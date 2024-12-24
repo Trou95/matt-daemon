@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include "../utility/utility.h"
 
@@ -17,7 +18,7 @@ class Logger
 public:
     Logger(const char *log_file) : LOG_FILE(log_file)
     {
-        file.open(LOG_FILE, std::ios::app);
+        file.open(LOG_FILE);
     }
 
     ~Logger()
@@ -46,23 +47,31 @@ public:
     }
 
     template <typename... Args>
+    void logLevel(std::string level, Args &&...args)
+    {
+        file << Utility::GetCurrentDateTime() << " " << "[ " << Utility::ToUpper(level) << " ] ";
+        logHelper(args...);
+        file << std::endl;
+    }
+
+    template <typename... Args>
     void LogInfo(const Args &...args)
     {
-        file << Utility::GetCurrentDateTime() << " " << "[INFO] ";
+        file << Utility::GetCurrentDateTime() << " " << "[ INFO ] ";
         log(args...);
     }
 
     template <typename... Args>
     void LogWarning(const Args &...args)
     {
-        file << Utility::GetCurrentDateTime() << " " << "[WARNING] ";
+        file << Utility::GetCurrentDateTime() << " " << "[ WARNING ] ";
         log(args...);
     }
 
     template <typename... Args>
     void LogError(const Args &...args)
     {
-        file << Utility::GetCurrentDateTime() << " " << "[ERROR] ";
+        file << Utility::GetCurrentDateTime() << " " << "[ ERROR ] ";
         log(args...);
     }
 

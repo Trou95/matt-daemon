@@ -1,11 +1,15 @@
 #include "include/utility/utility.h"
-#include "include/TintinReporter.h"
+#include "include/Server.h"
 
 #include <iostream>
 
 int main()
 {
-    TintinReporter reporter("log2.txt");
-    reporter.LogInfo("Hello, World!");
+    Logger logger("matt_daemon.log2");
+    logger.logLevel("Hello, World!", "asda");
+
+    Server server(8080);
+    server.run();
+
     return 0;
 }
