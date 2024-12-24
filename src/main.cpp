@@ -1,12 +1,11 @@
 #include "include/utility/utility.h"
-#include "include/logger/logger.h"
+#include "include/TintinReporter.h"
 
 #include <iostream>
 
 int main()
 {
-    Logger logger("log.txt");
-
-    logger.LogInfo("This is an info message");
+    TintinReporter reporter("log2.txt");
+    reporter.LogInfo("Hello, World!");
     return 0;
 }
